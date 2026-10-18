@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover India, explore destinations, plan trips and estimate your travel budget with Easy to Go Anywhere.">
+  <title>Easy to Go Anywhere | Explore India</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="logo" href="#home">
+        <span class="logo-icon">✈</span>
+        Easy to Go <span class="logo-highlight">Anywhere</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle"
+        aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#explore">Explore Places</a>
+        <a href="#planner">Plan a Trip</a>
+        <a href="#history">My History</a>
+        <a href="#about">About Us</a>
+        <button class="nav-button" id="loginOpen">Login</button>
+        <button class="btn btn-primary btn-small" id="signupOpen">Sign Up</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="hero-overlay"></div>
+      <div class="hero-content container">
+        <span class="eyebrow hero-eyebrow">YOUR JOURNEY STARTS HERE</span>
+        <h1>Easy to Go<br><span>Anywhere</span></h1>
+        <p>Discover incredible India, find your next adventure,
+          and plan unforgettable journeys without the stress.</p>
+
+        <form id="searchForm" class="search-box">
+          <label for="destinationSearch" class="sr-only">
+            Search destinations
+          </label>
+          <span class="search-icon">⌕</span>
+          <input id="destinationSearch" type="search"
+            placeholder="Where do you want to go?"
+            autocomplete="off">
+          <button class="btn btn-primary" type="submit">Explore Now</button>
+          <div id="suggestions" class="suggestions" role="listbox"
+            aria-label="Destination suggestions"></div>
+        </form>
+
+        <div class="hero-tags">
+          <span>✦ Mountains</span>
+          <span>✦ Beaches</span>
+          <span>✦ Culture</span>
+          <span>✦ Adventure</span>
+        </div>
+      </div>
+      <a href="#explore" class="scroll-cue" aria-label="Explore destinations">↓</a>
+    </section>
+
+    <!-- Quick statistics -->
+    <section class="stats container" aria-label="Website highlights">
+      <div class="stat"><strong>25+</strong><span>Destinations</span></div>
+      <div class="stat"><strong>10</strong><span>Travel Categories</span></div>
+      <div class="stat"><strong>100%</strong><span>Personalized Planning</span></div>
+      <div class="stat"><strong>₹</strong><span>Budget Estimator</span></div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section container" id="categories">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">FIND YOUR TRAVEL STYLE</span>
+          <h2>Explore by <span>Category</span></h2>
+        </div>
+        <p>From peaceful mountains to exciting city adventures.</p>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <!-- Destinations -->
+    <section class="section explore-section" id="explore">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">INCREDIBLE INDIA</span>
+            <h2>Find Your Next <span>Adventure</span></h2>
+          </div>
+          <button class="btn btn-outline" id="showAllPlaces">View All Places</button>
+        </div>
+
+        <div class="filter-row">
+          <label for="categoryFilter">Filter destinations</label>
+          <select id="categoryFilter">
+            <option value="All">All Categories</option>
+          </select>
+          <label for="sortPlaces">Sort by</label>
+          <select id="sortPlaces">
+            <option value="featured">Featured</option>
+            <option value="name">Name A–Z</option>
+            <option value="budget">Lowest budget</option>
+          </select>
+        </div>
+
+        <p id="resultsMessage" class="results-message" aria-live="polite"></p>
+        <div class="destination-grid" id="destinationGrid"></div>
+      </div>
+    </section>
+
+    <!-- Trip Planner -->
+    <section class="section planner-section" id="planner">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">YOUR NEXT JOURNEY</span>
+            <h2>Plan Your <span>Perfect Trip</span></h2>
+          </div>
+          <p>Choose your dates, travel preferences and budget.</p>
+        </div>
+
+        <div class="planner-layout">
+          <form id="tripForm" class="panel planner-form">
+            <h3>Trip Details</h3>
+
+            <div class="form-group">
+              <label for="tripDestination">Destination *</label>
+              <select id="tripDestination" required></select>
+            </div>
+
+            <div class="form-group">
+              <label for="departureCity">Departure city *</label>
+              <input id="departureCity" type="text"
+                placeholder="e.g. Indore" required maxlength="80">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="startDate">Start date *</label>
+                <input id="startDate" type="date" required>
+              </div>
+              <div class="form-group">
+                <label for="endDate">End date *</label>
+                <input id="endDate" type="date" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="travelers">Travelers</label>
+                <input id="travelers" type="number" min="1" max="30"
+                  value="2" required>
+              </div>
+              <div class="form-group">
+                <label for="transport">Transport</label>
+                <select id="transport">
+                  <option value="train">Train</option>
+                  <option value="bus">Bus</option>
+                  <option value="flight">Flight</option>
+                  <option value="car">Car</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="accommodation">Accommodation</label>
+                <select id="accommodation">
+                  <option value="budget">Budget hotel</option>
+                  <option value="standard" selected>Standard hotel</option>
+                  <option value="premium">Premium hotel</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="tripBudget">Budget per person (₹)</label>
+                <input id="tripBudget" type="number" min="0"
+                  value="10000" step="500" required>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-full" type="submit">
+              Generate My Trip
+            </button>
+            <p class="form-note">Estimates only. No bookings or payments are made.</p>
+          </form>
+
+          <div class="panel trip-result" id="tripResult" aria-live="polite">
+            <div class="result-placeholder">
+              <div class="placeholder-icon">🧳</div>
+              <h3>Your adventure starts here</h3>
+              <p>Fill in your trip details to generate a suggested
+                itinerary and estimated travel budget.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Favorites -->
+    <section class="section container" id="favorites">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">YOUR PERSONAL COLLECTION</span>
+          <h2>Saved <span>Favorites</span></h2>
+        </div>
+        <p>Keep the places you dream of visiting in one spot.</p>
+      </div>
+      <div id="favoritesGrid" class="destination-grid"></div>
+    </section>
+
+    <!-- Travel history -->
+    <section class="section history-section" id="history">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">YOUR TRAVEL ACTIVITY</span>
+            <h2>My Travel <span>History</span></h2>
+          </div>
+          <button id="clearHistory" class="btn btn-outline">Clear History</button>
+        </div>
+        <p class="muted">Your recent searches, viewed destinations and saved trip plans.</p>
+        <div id="historyList" class="history-list"></div>
+
+        <h3 class="subheading">Saved Trip Plans</h3>
+        <div id="savedTrips" class="saved-trips-grid"></div>
+      </div>
+    </section>
+
+    <!-- Weather -->
+    <section class="section container" id="weather">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">BEFORE YOU PACK</span>
+          <h2>Destination <span>Weather</span></h2>
+        </div>
+      </div>
+      <div class="weather-panel panel">
+        <div class="weather-icon">☀️</div>
+        <div>
+          <h3 id="weatherTitle">Weather information</h3>
+          <p id="weatherMessage">Live weather is not connected yet.
+            Select a destination to see this demo notice.</p>
+          <label for="weatherDestination">Choose destination</label>
+          <select id="weatherDestination"></select>
+        </div>
+        <button class="btn btn-outline" id="weatherCheck">Check Status</button>
+      </div>
+      <p class="form-note">No live temperature or forecast is shown. Connect a weather API to enable real data.</p>
+    </section>
+
+    <!-- Map -->
+    <section class="section map-section" id="map">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">FIND YOUR WAY</span>
+            <h2>Explore on the <span>Map</span></h2>
+          </div>
+        </div>
+        <div class="map-panel panel">
+          <div>
+            <span class="map-emoji">🗺️</span>
+            <h3>Explore destinations across India</h3>
+            <p>Select a destination to open its location in OpenStreetMap.
+              An internet connection is required.</p>
+            <label for="mapDestination">Choose destination</label>
+            <select id="mapDestination"></select>
+            <button id="openMap" class="btn btn-primary">Open Interactive Map</button>
+          </div>
+          <div class="map-preview">
+            <span>🇮🇳</span>
+            <h3>Incredible India</h3>
+            <p>Mountains, beaches, cities and culture.</p>
+            <small>Map opens on OpenStreetMap.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Travel tips -->
+    <section class="section container" id="tips">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">TRAVEL SMARTER</span>
+          <h2>Tips for a <span>Better Journey</span></h2>
+        </div>
+      </div>
+      <div class="tips-grid">
+        <article class="tip-card">
+          <span>🎒</span><h3>Packing Essentials</h3>
+          <p>Pack weather-appropriate clothes, medicines, identification,
+            chargers, water and reusable bags.</p>
+        </article>
+        <article class="tip-card">
+          <span>🛡️</span><h3>Stay Safe</h3>
+          <p>Share your itinerary with someone you trust, protect valuables
+            and check official local travel advisories.</p>
+        </article>
+        <article class="tip-card">
+          <span>🌤️</span><h3>Choose the Right Season</h3>
+          <p>Check seasonal conditions and road accessibility before
+            visiting mountains, beaches or remote areas.</p>
+        </article>
+        <article class="tip-card">
+          <span>🌱</span><h3>Travel Responsibly</h3>
+          <p>Respect local customs, reduce plastic waste, support local
+            businesses and protect wildlife.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about-section" id="about">
+      <div class="container about-content">
+        <span class="eyebrow">ABOUT OUR PROJECT</span>
+        <h2>Travel Planning, <span>Made Simpler</span></h2>
+        <p>Easy to Go Anywhere is a frontend travel planner concept designed
+          to help travelers discover destinations across India, organize
+          itineraries and estimate travel costs in one place.</p>
+        <a href="#planner" class="btn btn-primary">Start Planning</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="logo footer-logo" href="#home">✈ Easy to Go Anywhere</a>
+        <p>Your next Indian adventure starts here.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <a href="#explore">Destinations</a>
+        <a href="#planner">Plan a Trip</a>
+        <a href="#favorites">Favorites</a>
+        <a href="#history">Travel History</a>
+      </div>
+      <div>
+        <h3>Information</h3>
+        <a href="#about">About Us</a>
+        <a href="#tips">Travel Tips</a>
+        <a href="#contact">Contact</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms</a>
+      </div>
+      <div id="contact">
+        <h3>Get in Touch</h3>
+        <p>College Project · India</p>
+        <p>No real booking or payment services are provided.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="currentYear"></span> Easy to Go Anywhere. Made for explorers.</p>
+      <p id="privacy">Demo only. Saved information stays in this browser.</p>
+      <p id="terms">Prices are estimates, not quotes or booking offers.</p>
+    </div>
+  </footer>
+
+  <!-- Destination details dialog -->
+  <dialog id="detailsDialog" class="dialog">
+    <button class="dialog-close" id="closeDetails" aria-label="Close details">×</button>
+    <div id="detailsContent"></div>
+  </dialog>
+
+  <!-- Login demonstration dialog -->
+  <dialog id="authDialog" class="dialog auth-dialog">
+    <button class="dialog-close" id="closeAuth" aria-label="Close form">×</button>
+    <div class="auth-content">
+      <span class="eyebrow">WELCOME TRAVELER</span>
+      <h2 id="authTitle">Login</h2>
+      <p class="muted">Demonstration form only. No real account is created.</p>
+
+      <form id="authForm">
+        <div class="form-group" id="nameGroup" hidden>
+          <label for="authName">Name</label>
+          <input id="authName" type="text" maxlength="80" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="authEmail">Email</label>
+          <input id="authEmail" type="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="authPassword">Password</label>
+          <input id="authPassword" type="password" minlength="6" required
+            autocomplete="current-password">
+        </div>
+        <button class="btn btn-primary btn-full" type="submit">Continue</button>
+      </form>
+      <p id="authMessage" aria-live="polite"></p>
+      <button class="text-button" id="switchAuth">Need an account? Sign up</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>
